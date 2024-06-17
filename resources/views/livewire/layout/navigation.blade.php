@@ -37,7 +37,7 @@ new class extends Component
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('curriculum')" :active="request()->routeIs('curriculum')" wire:navigate>
-                        {{ __('Curriculum') }}
+                        {{ __('My Curriculums') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -92,7 +92,7 @@ new class extends Component
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('curriculum')" :active="request()->routeIs('curriculum')" wire:navigate>
-                {{ __('Curriculum') }}
+                {{ __('My Curriculums') }}
             </x-responsive-nav-link>
         </div>
 

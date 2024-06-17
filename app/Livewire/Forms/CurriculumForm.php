@@ -53,7 +53,7 @@ class CurriculumForm extends Component
     {
         $this->validate();
 
-        \App\Models\Curriculum::updateOrCreate(['id' => $this->curriculumId], [
+        $curriculum = \App\Models\Curriculum::updateOrCreate(['id' => $this->curriculumId], [
             'customer_info' => [
                 'name' => $this->name,
                 'email' => $this->email,
@@ -66,8 +66,8 @@ class CurriculumForm extends Component
             'customer_id' => Auth::id(),
         ]);
 
-        session()->flash('message', 'Curriculum saved successfully.');
-        return redirect()->route('curriculum');
+        session()->flash('success-message', 'Curriculum saved successfully.');
+        return redirect()->route('curriculum.view', $curriculum->id);
     }
 
     public function addEducation()
@@ -109,6 +109,6 @@ class CurriculumForm extends Component
 
     public function render()
     {
-        return view('livewire.curriculum-form')->layout('layouts.app');
+        return view('livewire.curriculum.form');
     }
 }

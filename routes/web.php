@@ -8,17 +8,17 @@ Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
-Route::view('curriculum', 'curriculum')
+Route::view('curriculum', 'curriculum-grid')
     ->middleware(['auth', 'verified'])
     ->name('curriculum');
 
-Route::get('/curriculum/create', \App\Livewire\Forms\CurriculumForm::class)
+Route::view('/curriculum/create', 'curriculum')
     ->middleware(['auth', 'verified'])
     ->name('curriculum.create');
 
-Route::get('/curriculum/edit/{curriculumId}', \App\Livewire\Forms\CurriculumForm::class)
+Route::view('/curriculum/view/{curriculumId}', 'curriculum')
     ->middleware(['auth', 'verified'])
-    ->name('curriculum.edit');
+    ->name('curriculum.view');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])

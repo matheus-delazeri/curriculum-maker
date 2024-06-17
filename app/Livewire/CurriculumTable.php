@@ -4,15 +4,12 @@ namespace App\Livewire;
 
 use App\Enums\CurriculumStatus;
 use App\Models\Curriculum;
-use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
-use PowerComponents\LivewirePowerGrid\Exportable;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
-use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
@@ -22,10 +19,17 @@ final class CurriculumTable extends PowerGridComponent
 {
     use WithExport;
 
+    /**
+     * When set to true will render the curriculums
+     * available to assembly/review.
+     *
+     * @var bool
+     */
+    public bool $availableToMount = false;
+
     public function setUp(): array
     {
         return [
-            Header::make()->showSearchInput(),
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
@@ -34,7 +38,13 @@ final class CurriculumTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Curriculum::where('id', Auth::id());
+        if ($this->availableToMount) {
+            return Curriculum::query()
+                ->whereIn('status', [CurriculumStatus::NEW, CurriculumStatus::PENDING_REVIEW])
+                ->where('customer_id', '!=', Auth::id());
+        }
+
+        return Curriculum::where('customer_id', Auth::id());
     }
 
     public function relationSearch(): array
@@ -47,6 +57,7 @@ final class CurriculumTable extends PowerGridComponent
         return PowerGrid::fields()
             ->add('id')
             ->add('created_at')
+            ->add('updated_at')
             ->add('assembler', function ($curriculum) {
                 return !is_null($curriculum->assembler) ? $curriculum->assembler->name : '-';
             })
@@ -61,10 +72,12 @@ final class CurriculumTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Id', 'id'),
+            Column::make('Id', 'id')->sortable(),
             Column::make(__('Assembler'), 'assembler'),
             Column::make(__('Reviewer'), 'reviewer'),
             Column::make(__('Created at'), 'created_at', 'created_at')
+                ->sortable(),
+            Column::make(__('Updated at'), 'updated_at', 'updated_at')
                 ->sortable(),
 
             Column::make(__('Status'), 'status')
@@ -74,8 +87,7 @@ final class CurriculumTable extends PowerGridComponent
                     CurriculumStatus::PENDING_REVIEW->value => 'text-blue-400',
                     CurriculumStatus::PENDING_APPROVAL->value => 'text-blue-400',
                     CurriculumStatus::APPROVED->value => 'text-green-400',
-                    CurriculumStatus::REJECTED->value => 'text-red-400',
-                    'out-of-stock' => 'text-red-600'
+                    CurriculumStatus::REJECTED->value => 'text-red-400'
                 ]),
             Column::action(__('Action'))
         ];
@@ -89,20 +101,20 @@ final class CurriculumTable extends PowerGridComponent
         ];
     }
 
-    #[\Livewire\Attributes\On('edit')]
-    public function edit($rowId): void
+    #[\Livewire\Attributes\On('view')]
+    public function view($rowId): void
     {
-        $this->redirectRoute('curriculum.edit', $rowId);
+        $this->redirectRoute('curriculum.view', $rowId);
     }
 
     public function actions(Curriculum $row): array
     {
         return [
-            Button::add('edit')
-                ->slot('Edit')
+            Button::add('view')
+                ->slot(__('View'))
                 ->id()
                 ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-                ->dispatch('edit', ['rowId' => $row->id])
+                ->dispatch('view', ['rowId' => $row->id])
         ];
     }
 }

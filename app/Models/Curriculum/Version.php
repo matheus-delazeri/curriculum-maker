@@ -12,6 +12,8 @@ class Version extends Model
 {
     use HasFactory;
 
+    protected $table = 'curriculum_version';
+
     protected $fillable = [
         'content',
         'curriculum_id',
