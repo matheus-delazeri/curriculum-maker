@@ -97,7 +97,7 @@ new class extends Component
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('curriculum.grid')" :active="request()->routeIs('curriculum.*')" wire:navigate>
+            <x-responsive-nav-link :href="route('curriculum.grid')" :active="request()->routeIs('curriculum.grid')" wire:navigate>
                 {{ __('Curriculums') }}
             </x-responsive-nav-link>
 
