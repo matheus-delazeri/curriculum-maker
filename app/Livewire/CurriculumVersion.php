@@ -22,6 +22,7 @@ final class CurriculumVersion extends PowerGridComponent
 
     public string $sortField = 'id';
     public string $sortDirection = 'desc';
+    public ?int $curriculumId = null;
 
     public function setUp(): array
     {
@@ -34,7 +35,7 @@ final class CurriculumVersion extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        return Version::query();
+        return Version::query()->where('curriculum_id', $this->curriculumId);
     }
 
     public function relationSearch(): array

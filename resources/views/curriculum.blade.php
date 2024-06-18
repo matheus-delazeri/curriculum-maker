@@ -82,7 +82,7 @@
                             <livewire:forms.curriculum-content-form :curriculumId="$curriculumId" :versionId="$versionId" />
                         </div>
                         <div x-show="activeTab === 'version'">
-                            <livewire:curriculum-version/>
+                            <livewire:curriculum-version :curriculumId="$curriculumId"/>
                         </div>
                         <div x-show="activeTab === 'result'">
                             <livewire:curriculum-result :curriculumId="$curriculumId"/>
