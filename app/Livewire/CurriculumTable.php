@@ -111,10 +111,7 @@ final class CurriculumTable extends PowerGridComponent
 
     public function filters(): array
     {
-        return [
-            Filter::enumSelect('status', 'status')
-                ->dataSource(CurriculumStatus::cases())
-        ];
+        return [];
     }
 
     #[\Livewire\Attributes\On('view')]
