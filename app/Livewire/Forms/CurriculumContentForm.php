@@ -16,7 +16,10 @@ class CurriculumContentForm extends Component
     {
         $this->curriculum = Curriculum::findOrFail($curriculumId);
         $this->trixId = 'trix-' . uniqid();
-        $versionId = $versionId ?? $this->curriculum->versions()->latest()->first()->id;
+        if (is_null($versionId) && $this->curriculum->versions()->count()) {
+            $versionId = $this->curriculum->versions()->latest()->first()->id;
+        }
+
         if (!is_null($versionId)) {
             $version = Curriculum\Version::findOrFail($versionId);
             $this->value = $version->content;
@@ -34,13 +37,13 @@ class CurriculumContentForm extends Component
 
     public function save()
     {
-        $curriculum = Curriculum\Version::create([
+        $version = Curriculum\Version::create([
             'content' => $this->value,
             'curriculum_id' => $this->curriculum->id,
             'editor_id' => Auth::id()
         ]);
 
-        session()->flash('success-message', 'Curriculum saved successfully.');
-        return redirect()->route('curriculum.view', $curriculum->id);
+        session()->flash('success-message', 'Curriculum version saved successfully.');
+        return redirect()->route('curriculum.view', $version->curriculum->id);
     }
 }

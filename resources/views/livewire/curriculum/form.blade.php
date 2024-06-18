@@ -10,9 +10,7 @@
                 </svg>
                 {{ __('Back') }}
             </x-secondary-button>
-            @if(is_null($curriculumId))
-                <x-primary-button type="submit">{{ __('Save') }}</x-primary-button>
-            @endif
+            <x-primary-button class="hidden" type="submit">{{ __('Save') }}</x-primary-button>
         </div>
 
         <div class="space-y-4">
@@ -79,7 +77,7 @@
                     <div class="mb-4">
                         <x-input-label for="description_education{{ $index }}" :value="__('Description')"/>
                         <textarea wire:model="educations.{{ $index }}.description" @disabled(!is_null($curriculumId))
-                                  id="description_education{{ $index }}"
+                        id="description_education{{ $index }}"
                                   class="form-textarea border-gray-300 rounded-md shadow-sm mt-1 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                                   rows="3"></textarea>
                         <x-input-error :messages="$errors->get('educations.'.$index.'.description')"
@@ -104,7 +102,7 @@
         </div>
 
         <div class="space-y-4">
-            <h2 class="text-lg font-semibold">Experience</h2>
+            <h2 class="text-lg font-semibold">{{__("Experience") }}</h2>
             @foreach($experiences as $index => $experience)
                 <div class="border border-gray-200 rounded p-4">
                     <div class="grid gap-4 md:grid-cols-3">
@@ -136,7 +134,7 @@
                     <div class="mb-4">
                         <x-input-label for="description_experience{{ $index }}" :value="__('Description')"/>
                         <textarea wire:model="experiences.{{ $index }}.description" @disabled(!is_null($curriculumId))
-                                  id="description_experience{{ $index }}"
+                        id="description_experience{{ $index }}"
                                   class="form-textarea border-gray-300 rounded-md shadow-sm mt-1 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                                   rows="3"></textarea>
                         @error('experiences.'.$index.'.description') <span

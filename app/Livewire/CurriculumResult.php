@@ -13,7 +13,9 @@ class CurriculumResult extends Component
     public function mount(int $curriculumId)
     {
         $curriculum = Curriculum::findOrFail($curriculumId);
-        $this->content = $curriculum->versions()->latest()->first()->content;
+        if ($curriculum->versions()->count()) {
+            $this->content = $curriculum->versions()->latest()->first()->content;
+        }
     }
 
     public function render()

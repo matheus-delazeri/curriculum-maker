@@ -102,7 +102,7 @@ new class extends Component
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('curriculum.editor.grid')" :active="request()->routeIs('curriculum.editor.*')" wire:navigate>
-                {{ __('Curriculums') }}
+                {{ __('Assembly/Reviews') }}
             </x-responsive-nav-link>
         </div>
 
