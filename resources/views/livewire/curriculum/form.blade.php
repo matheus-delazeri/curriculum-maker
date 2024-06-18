@@ -10,7 +10,9 @@
                 </svg>
                 {{ __('Back') }}
             </x-secondary-button>
-            <x-primary-button class="hidden" type="submit">{{ __('Save') }}</x-primary-button>
+            @if(is_null($curriculumId))
+                <x-primary-button type="submit">{{ __('Save') }}</x-primary-button>
+            @endif
         </div>
 
         <div class="space-y-4">
