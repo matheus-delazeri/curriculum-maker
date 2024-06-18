@@ -36,8 +36,14 @@ new class extends Component
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('curriculum')" :active="request()->routeIs('curriculum')" wire:navigate>
-                        {{ __('My Curriculums') }}
+                    <x-nav-link :href="route('curriculum.grid')" :active="request()->routeIs('curriculum.grid')" wire:navigate>
+                        {{ __('Curriculums') }}
+                    </x-nav-link>
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('curriculum.editor.grid')" :active="request()->routeIs('curriculum.editor.*')" wire:navigate>
+                        {{ __('Assembly/Reviews') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -91,8 +97,12 @@ new class extends Component
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('curriculum')" :active="request()->routeIs('curriculum')" wire:navigate>
-                {{ __('My Curriculums') }}
+            <x-responsive-nav-link :href="route('curriculum.grid')" :active="request()->routeIs('curriculum.*')" wire:navigate>
+                {{ __('Curriculums') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('curriculum.editor.grid')" :active="request()->routeIs('curriculum.editor.*')" wire:navigate>
+                {{ __('Curriculums') }}
             </x-responsive-nav-link>
         </div>
 

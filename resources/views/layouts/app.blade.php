@@ -42,6 +42,19 @@
                 </div>
             </div>
         @endif
+        @if (session()->has('error-message'))
+            <div class="pt-6">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div
+                        class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-green-400"
+                        role="alert">
+                        <div class="ms-3 text-sm font-medium">
+                            {{ __(session('error-message')) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         {{ $slot }}
     </main>
 </div>

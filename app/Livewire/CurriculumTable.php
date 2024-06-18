@@ -10,6 +10,7 @@ use PowerComponents\LivewirePowerGrid\Button;
 use PowerComponents\LivewirePowerGrid\Column;
 use PowerComponents\LivewirePowerGrid\Facades\Filter;
 use PowerComponents\LivewirePowerGrid\Footer;
+use PowerComponents\LivewirePowerGrid\Header;
 use PowerComponents\LivewirePowerGrid\PowerGrid;
 use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
@@ -25,11 +26,20 @@ final class CurriculumTable extends PowerGridComponent
      *
      * @var bool
      */
-    public bool $availableToMount = false;
+    public bool $needJoin = false;
+
+    /**
+     * When set to true will render only curriculums
+     * that the current user joined to edit.
+     *
+     * @var bool
+     */
+    public bool $toEdit = false;
 
     public function setUp(): array
     {
         return [
+            Header::make()->includeViewOnTop('livewire.curriculum.grid.header'),
             Footer::make()
                 ->showPerPage()
                 ->showRecordCount(),
@@ -38,10 +48,16 @@ final class CurriculumTable extends PowerGridComponent
 
     public function datasource(): Builder
     {
-        if ($this->availableToMount) {
+        if ($this->needJoin) {
             return Curriculum::query()
-                ->whereIn('status', [CurriculumStatus::NEW, CurriculumStatus::PENDING_REVIEW])
+                ->whereIn('status', [CurriculumStatus::NEW, CurriculumStatus::ASSEMBLED])
                 ->where('customer_id', '!=', Auth::id());
+        }
+
+        if ($this->toEdit) {
+            return Curriculum::query()
+                ->where('assembler_id', Auth::id())
+                ->orWhere('reviewer_id', Auth::id());
         }
 
         return Curriculum::where('customer_id', Auth::id());
@@ -64,9 +80,7 @@ final class CurriculumTable extends PowerGridComponent
             ->add('reviewer', function ($curriculum) {
                 return !is_null($curriculum->reviewer) ? $curriculum->reviewer->name : '-';
             })
-            ->add('status', function ($curriculum) {
-                return $curriculum->status;
-            });
+            ->add('status_label', fn($curriculum) => $curriculum->status->label());
     }
 
     public function columns(): array
@@ -80,14 +94,16 @@ final class CurriculumTable extends PowerGridComponent
             Column::make(__('Updated at'), 'updated_at', 'updated_at')
                 ->sortable(),
 
-            Column::make(__('Status'), 'status')
+            Column::make(__('Status'), 'status_label')
                 ->contentClasses([
-                    CurriculumStatus::NEW->value => 'text-orange-400',
-                    CurriculumStatus::PENDING_ASSEMBLY->value => 'text-blue-400',
-                    CurriculumStatus::PENDING_REVIEW->value => 'text-blue-400',
-                    CurriculumStatus::PENDING_APPROVAL->value => 'text-blue-400',
-                    CurriculumStatus::APPROVED->value => 'text-green-400',
-                    CurriculumStatus::REJECTED->value => 'text-red-400'
+                    CurriculumStatus::NEW->label() => 'text-orange-400',
+                    CurriculumStatus::PENDING_ASSEMBLY->label() => 'text-blue-400',
+                    CurriculumStatus::ASSEMBLED->label() => 'text-blue-400',
+                    CurriculumStatus::PENDING_REVIEW->label() => 'text-blue-400',
+                    CurriculumStatus::REVIEWED->label() => 'text-blue-400',
+                    CurriculumStatus::PENDING_APPROVAL->label() => 'text-blue-400',
+                    CurriculumStatus::APPROVED->label() => 'text-green-400',
+                    CurriculumStatus::REJECTED->label() => 'text-red-400'
                 ]),
             Column::action(__('Action'))
         ];
@@ -107,13 +123,35 @@ final class CurriculumTable extends PowerGridComponent
         $this->redirectRoute('curriculum.view', $rowId);
     }
 
+    #[\Livewire\Attributes\On('new')]
+    public function new(): void
+    {
+        $this->redirectRoute('curriculum.new');
+    }
+
+    #[\Livewire\Attributes\On('join')]
+    public function join($rowId): void
+    {
+        $this->redirectRoute('curriculum.join', $rowId);
+    }
+
     public function actions(Curriculum $row): array
     {
+        if ($this->needJoin) {
+            return [
+                Button::add('join')
+                    ->slot(__('Join'))
+                    ->id()
+                    ->class('inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150')
+                    ->dispatch('join', ['rowId' => $row->id])
+            ];
+        }
+
         return [
             Button::add('view')
                 ->slot(__('View'))
                 ->id()
-                ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
+                ->class('inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-500 rounded-md font-semibold text-xs text-gray-700 dark:text-gray-300 uppercase tracking-widest shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 disabled:opacity-25 transition ease-in-out duration-150')
                 ->dispatch('view', ['rowId' => $row->id])
         ];
     }

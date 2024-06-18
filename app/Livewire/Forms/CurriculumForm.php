@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Enums\CurriculumStatus;
+use App\Models\Curriculum;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -34,7 +35,7 @@ class CurriculumForm extends Component
     public function mount($curriculumId = null)
     {
         if ($curriculumId) {
-            $curriculum = \App\Models\Curriculum::findOrFail($curriculumId);
+            $curriculum = Curriculum::findOrFail($curriculumId);
             $this->curriculumId = $curriculum->id;
             $this->name = $curriculum->customer_info['name'];
             $this->email = $curriculum->customer_info['email'];
@@ -53,7 +54,7 @@ class CurriculumForm extends Component
     {
         $this->validate();
 
-        $curriculum = \App\Models\Curriculum::updateOrCreate(['id' => $this->curriculumId], [
+        $curriculum = Curriculum::updateOrCreate(['id' => $this->curriculumId], [
             'customer_info' => [
                 'name' => $this->name,
                 'email' => $this->email,
@@ -104,11 +105,12 @@ class CurriculumForm extends Component
 
     public function back(): void
     {
-        $this->redirectRoute('curriculum');
+        $this->redirectRoute('dashboard');
     }
 
     public function render()
     {
         return view('livewire.curriculum.form');
     }
+
 }
