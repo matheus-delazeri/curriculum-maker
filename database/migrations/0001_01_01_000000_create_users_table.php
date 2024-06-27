@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->softDeletes();
             $table->string('password');
+            $table->json('preferences')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

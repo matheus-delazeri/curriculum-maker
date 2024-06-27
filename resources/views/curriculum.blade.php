@@ -15,11 +15,11 @@
     <div class="py-6" x-data="{ activeTab: 'information' }">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex">
-                <div class="w-1/4 bg-gray-50 dark:bg-gray-900 p-4">
+                <div class="w-1/4 bg-gray-50 dark:bg-gray-700 p-4">
                     <ul class="space-y-2 text-sm font-medium text-gray-500 dark:text-gray-400">
                         <li>
                             <button @click.prevent="activeTab = 'information'"
-                                    :class="{'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200': activeTab === 'information', 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700': activeTab !== 'information'}"
+                                    :class="{'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200 dark:ring-indigo-500 dark:ring-offset-2 dark:outline-none dark:ring-2 dark:ring-offset-gray-800': activeTab === 'information', 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700': activeTab !== 'information'}"
                                     class="inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 w-full">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                      class="size-5">
@@ -32,7 +32,7 @@
                         @if(!is_null($curriculumId))
                             <li>
                                 <button @click.prevent="activeTab = 'content'"
-                                        :class="{'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200': activeTab === 'content', 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700': activeTab !== 'content'}"
+                                        :class="{'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200 dark:ring-indigo-500 dark:ring-offset-2 dark:outline-none dark:ring-2 dark:ring-offset-gray-800': activeTab === 'content', 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700': activeTab !== 'content'}"
                                         class="inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 w-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                          class="size-5">
@@ -46,7 +46,7 @@
                             </li>
                             <li>
                                 <button @click.prevent="activeTab = 'version'"
-                                        :class="{'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200': activeTab === 'version', 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700': activeTab !== 'version'}"
+                                        :class="{'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200 dark:ring-indigo-500 dark:ring-offset-2 dark:outline-none dark:ring-2 dark:ring-offset-gray-800': activeTab === 'version', 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700': activeTab !== 'version'}"
                                         class="inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 w-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                          class="size-5">
@@ -59,7 +59,7 @@
                             </li>
                             <li>
                                 <button @click.prevent="activeTab = 'result'"
-                                        :class="{'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200': activeTab === 'result', 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700': activeTab !== 'result'}"
+                                        :class="{'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200 dark:ring-indigo-500 dark:ring-offset-2 dark:outline-none dark:ring-2 dark:ring-offset-gray-800': activeTab === 'result', 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700': activeTab !== 'result'}"
                                         class="inline-flex items-center px-4 py-2 rounded-md font-semibold text-xs uppercase tracking-widest shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150 w-full">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                          class="size-5">

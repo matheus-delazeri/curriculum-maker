@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'preferences'
     ];
 
     /**
@@ -43,6 +44,17 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'preferences' => 'array'
         ];
+    }
+
+    public function getTheme()
+    {
+        return $this->preferences['theme'] ?? 'light';
+    }
+
+    public function getLocale()
+    {
+        return $this->preferences['locale'] ?? 'en';
     }
 }

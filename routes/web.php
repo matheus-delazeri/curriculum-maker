@@ -1,18 +1,16 @@
 <?php
 
 use App\Http\Controllers\CurriculumController;
+use App\Http\Middlewares\LocaleMiddleware;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::group(['middleware' => ['auth', 'verified', LocaleMiddleware::class]], function () {
+    Route::view('dashboard', 'dashboard')
+        ->name('dashboard');
 
-Route::middleware(['auth', 'verified'])
-    ->name('curriculum.')
-    ->prefix('curriculum')
-    ->group(function () {
+    Route::name('curriculum.')->prefix('curriculum')->group(function () {
         Route::view('/', 'curriculum-grid')->name('grid');
         Route::view('/new', 'curriculum')->name('new');
         Route::view('/view/{curriculumId}', 'curriculum')->name('view');
@@ -22,8 +20,8 @@ Route::middleware(['auth', 'verified'])
         Route::view('/editor/grid', 'editor')->name('editor.grid');
     });
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+    Route::view('profile', 'profile')
+        ->name('profile');
+});
 
 require __DIR__ . '/auth.php';

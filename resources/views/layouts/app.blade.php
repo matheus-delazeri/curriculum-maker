@@ -15,7 +15,12 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased" x-data="{ darkMode: @json(Auth::user()->getTheme() === 'dark')}" x-init="
+    window.addEventListener('theme-updated', event => {
+        darkMode = event.detail.theme === 'dark';
+    });
+">
+<div x-bind:class="{'dark' : darkMode === true}">
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
     <livewire:layout.navigation/>
 
@@ -58,6 +63,7 @@
         @endif
         {{ $slot }}
     </main>
+</div>
 </div>
 </body>
 </html>
