@@ -47,9 +47,9 @@
                                     </p>
 
                                     <div class="mt-6">
-                                        <a href="{{ route('register') }}" class="text-black font-bold hover:underline">{{ __('Create your account') }}</a>
+                                        <a href="{{ route('register') }}" class="text-black dark:text-white font-bold hover:underline">{{ __('Create your account') }}</a>
                                         <span class="mx-2">{{ __('or') }}</span>
-                                        <a href="{{ route('login') }}" class="text-black font-bold hover:underline">{{ __('Log in') }}</a>
+                                        <a href="{{ route('login') }}" class="text-black dark:text-white font-bold hover:underline">{{ __('Log in') }}</a>
                                     </div>
                                 </div>
                             </div>

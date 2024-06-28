@@ -23,4 +23,12 @@ body > div.dark {
         background-color: #0f172a;
         border-color: #344155;
     }
+
+    #pg-footer {
+        background-color: rgb(55 65 81 / var(--tw-bg-opacity));
+    }
+
+    .power-grid-table th {
+        color: #ffffff;
+    }
 }
