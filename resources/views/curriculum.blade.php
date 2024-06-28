@@ -1,6 +1,7 @@
 @if(!isset($curriculumId))
     {{ $curriculumId = null }}
 @endif
+
 @if(!isset($versionId))
     {{ $versionId = null }}
 @endif

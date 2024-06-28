@@ -1,19 +1,11 @@
 <form wire:submit.prevent="save" class="bg-white dark:bg-gray-800 rounded-lg space-y-6">
 
     <div class="flex gap-2 justify-end mb-6">
-        <x-primary-button type="submit">{{ __('Save') }}</x-primary-button>
+        <x-primary-button id="toastui-save" type="submit">{{ __('Save') }}</x-primary-button>
     </div>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.css"/>
-    <input id="{{ $trixId }}" type="hidden" name="content" value="{{ $value }}">
-    <trix-editor input="{{ $trixId }}"></trix-editor>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js"></script>
+    <div class="flex flex-col space-y-2">
+        <input id="toastui-content" type="text" class="hidden" name="content" wire:model="content" value="{{ $content }}">
+        <div id="toastui-editor" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></div>
+    </div>
 </form>
-<script>
-    var trixEditor = document.getElementById("{{ $trixId }}")
-
-    addEventListener("trix-blur", function(event) {
-        @this.set('value', trixEditor.getAttribute('value'))
-    })
-</script>

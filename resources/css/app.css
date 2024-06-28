@@ -31,4 +31,12 @@ body > div.dark {
     .power-grid-table th {
         color: #ffffff;
     }
+
+    #toastui-editor {
+        background-color: white;
+    }
+
+    .toastui-editor-toolbar {
+        color: black;
+    }
 }

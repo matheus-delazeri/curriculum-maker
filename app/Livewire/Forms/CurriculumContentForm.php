@@ -9,20 +9,18 @@ use Livewire\Component;
 class CurriculumContentForm extends Component
 {
     public Curriculum|null $curriculum = null;
-    public $value = '';
-    public $trixId;
+    public $content = '';
 
     public function mount(int $curriculumId, int $versionId = null)
     {
         $this->curriculum = Curriculum::findOrFail($curriculumId);
-        $this->trixId = 'trix-' . uniqid();
         if (is_null($versionId) && $this->curriculum->versions()->count()) {
             $versionId = $this->curriculum->versions()->latest()->first()->id;
         }
 
         if (!is_null($versionId)) {
             $version = Curriculum\Version::findOrFail($versionId);
-            $this->value = $version->content;
+            $this->content = $version->content;
         }
     }
 
@@ -31,14 +29,10 @@ class CurriculumContentForm extends Component
         return view('livewire.curriculum.content');
     }
 
-    public function updatedValue($value){
-        $this->value = $value;
-    }
-
     public function save()
     {
         $version = Curriculum\Version::create([
-            'content' => $this->value,
+            'content' => $this->content,
             'curriculum_id' => $this->curriculum->id,
             'editor_id' => Auth::id()
         ]);
