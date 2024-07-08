@@ -26,7 +26,9 @@ class CurriculumContentForm extends Component
 
     public function render()
     {
-        return view('livewire.curriculum.content');
+        return view('livewire.curriculum.content', [
+            'content' => $this->content
+        ]);
     }
 
     public function save()

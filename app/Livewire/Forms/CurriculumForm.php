@@ -10,6 +10,7 @@ use Livewire\Component;
 class CurriculumForm extends Component
 {
     public ?int $curriculumId = null;
+    public Curriculum $curriculum;
     public string $name = '';
     public string $email = '';
     public string $phone = '';
@@ -36,18 +37,47 @@ class CurriculumForm extends Component
     {
         if ($curriculumId) {
             $curriculum = Curriculum::findOrFail($curriculumId);
+            $this->curriculum = $curriculum;
             $this->curriculumId = $curriculum->id;
-            $this->name = $curriculum->customer_info['name'];
-            $this->email = $curriculum->customer_info['email'];
-            $this->phone = $curriculum->customer_info['phone'];
-            $this->address = $curriculum->customer_info['address'];
-            $this->educations = $curriculum->customer_info['educations'] ?? [];
-            $this->experiences = $curriculum->customer_info['experiences'] ?? [];
+            $this->mountCustomerData($curriculum);
         } else {
             // Initialize empty arrays for educations and experiences if creating new curriculum
             $this->educations = [];
             $this->experiences = [];
         }
+    }
+
+    private function mountCustomerData(Curriculum $curriculum)
+    {
+        $customerInfo = $curriculum->customer_info;
+        if ($curriculum->customer->id != Auth::id()) {
+            $customerInfo = $this->maskCustomerInfo($customerInfo);
+        }
+        $this->name = $customerInfo['name'];
+        $this->email = $customerInfo['email'];
+        $this->phone = $customerInfo['phone'];
+        $this->address = $customerInfo['address'];
+        $this->educations = $customerInfo['educations'] ?? [];
+        $this->experiences = $customerInfo['experiences'] ?? [];
+    }
+
+    private function maskCustomerInfo($info)
+    {
+        $maskedInfo = [];
+        foreach ($info as $key => $value) {
+            if (is_string($value)) {
+                $maskedInfo[$key] = str_repeat('*', strlen($value));
+            } elseif (is_array($value)) {
+                $maskedInfo[$key] = array_map(function($item) {
+                    return array_map(function($subItem) {
+                        return is_string($subItem) ? str_repeat('*', strlen($subItem)) : $subItem;
+                    }, $item);
+                }, $value);
+            } else {
+                $maskedInfo[$key] = $value;
+            }
+        }
+        return $maskedInfo;
     }
 
     public function save()
@@ -112,5 +142,4 @@ class CurriculumForm extends Component
     {
         return view('livewire.curriculum.form');
     }
-
 }

@@ -1,6 +1,10 @@
-@if(!isset($curriculumId))
-    {{ $curriculumId = null }}
-@endif
+<?php
+    if (!isset($curriculumId)) $curriculumId = null;
+
+    /** @var \App\Models\Curriculum $curriculum */
+    $curriculum = \App\Models\Curriculum::find($curriculumId);
+    $curriculumId = !is_null($curriculum) ? $curriculum->id : null;
+?>
 
 @if(!isset($versionId))
     {{ $versionId = null }}
@@ -30,7 +34,8 @@
                                 <span class="hidden sm:inline pl-2">{{ __('Information') }}</span>
                             </button>
                         </li>
-                        @if(!is_null($curriculumId))
+                        @if(!is_null($curriculum))
+                            @if($curriculum->customer->id !== Auth::user()->id)
                             <li>
                                 <button @click.prevent="activeTab = 'content'"
                                         :class="{'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200 dark:ring-indigo-500 dark:ring-offset-2 dark:outline-none dark:ring-2 dark:ring-offset-gray-800': activeTab === 'content', 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700': activeTab !== 'content'}"
@@ -58,6 +63,7 @@
                                     <span class="hidden sm:inline pl-2">{{ __('Versions') }}</span>
                                 </button>
                             </li>
+                            @endif
                             <li>
                                 <button @click.prevent="activeTab = 'result'"
                                         :class="{'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200 dark:ring-indigo-500 dark:ring-offset-2 dark:outline-none dark:ring-2 dark:ring-offset-gray-800': activeTab === 'result', 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700': activeTab !== 'result'}"
