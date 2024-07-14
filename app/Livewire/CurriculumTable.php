@@ -50,14 +50,12 @@ final class CurriculumTable extends PowerGridComponent
     {
         if ($this->needJoin) {
             return Curriculum::query()
-                ->whereIn('status', [CurriculumStatus::NEW, CurriculumStatus::ASSEMBLED])
+                ->whereIn('status', [CurriculumStatus::NEW])
                 ->where('customer_id', '!=', Auth::id());
         }
 
         if ($this->toEdit) {
-            return Curriculum::query()
-                ->where('assembler_id', Auth::id())
-                ->orWhere('reviewer_id', Auth::id());
+            return Curriculum::query()->where('reviewer_id', Auth::id());
         }
 
         return Curriculum::where('customer_id', Auth::id());
@@ -74,9 +72,6 @@ final class CurriculumTable extends PowerGridComponent
             ->add('id')
             ->add('created_at')
             ->add('updated_at')
-            ->add('assembler', function ($curriculum) {
-                return !is_null($curriculum->assembler) ? $curriculum->assembler->name : '-';
-            })
             ->add('reviewer', function ($curriculum) {
                 return !is_null($curriculum->reviewer) ? $curriculum->reviewer->name : '-';
             })
@@ -87,7 +82,6 @@ final class CurriculumTable extends PowerGridComponent
     {
         return [
             Column::make('Id', 'id')->sortable(),
-            Column::make(__('Assembler'), 'assembler'),
             Column::make(__('Reviewer'), 'reviewer'),
             Column::make(__('Created at'), 'created_at', 'created_at')
                 ->sortable(),
@@ -97,10 +91,7 @@ final class CurriculumTable extends PowerGridComponent
             Column::make(__('Status'), 'status_label')
                 ->contentClasses([
                     CurriculumStatus::NEW->label() => 'text-orange-400',
-                    CurriculumStatus::PENDING_ASSEMBLY->label() => 'text-blue-400',
-                    CurriculumStatus::ASSEMBLED->label() => 'text-blue-400',
                     CurriculumStatus::PENDING_REVIEW->label() => 'text-blue-400',
-                    CurriculumStatus::REVIEWED->label() => 'text-blue-400',
                     CurriculumStatus::PENDING_APPROVAL->label() => 'text-blue-400',
                     CurriculumStatus::APPROVED->label() => 'text-green-400',
                     CurriculumStatus::REJECTED->label() => 'text-red-400'

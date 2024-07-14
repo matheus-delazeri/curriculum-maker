@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CurriculumStatus;
 use App\Models\Curriculum;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
@@ -31,5 +33,17 @@ class CurriculumController extends Controller
 
         session()->flash('error-message', 'Something went wrong while joining the curriculum!');
         return redirect()->route('dashboard');
+    }
+
+    public function pdf(int $id)
+    {
+        $curriculum = Curriculum::findOrFail($id);
+        if ($curriculum->customer->id != Auth::id() || !$curriculum->status == CurriculumStatus::APPROVED) {
+            throw new \InvalidArgumentException("Unable to download this curriculum.");
+        }
+
+        return Pdf::loadView('livewire.curriculum.pdf', ['content' => $curriculum->getContent()])
+            ->addInfo(['Title' => __('Curriculum (:id)', ['id' => $curriculum->id])])
+            ->stream(__('Curriculum (:id).pdf', ['id' => $curriculum->id]));
     }
 }

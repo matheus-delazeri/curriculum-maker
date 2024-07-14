@@ -43,7 +43,7 @@ new class extends Component
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('curriculum.editor.grid')" :active="request()->routeIs('curriculum.editor.*')" wire:navigate>
-                        {{ __('Assembly/Reviews') }}
+                        {{ __('Reviews') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -102,7 +102,7 @@ new class extends Component
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('curriculum.editor.grid')" :active="request()->routeIs('curriculum.editor.*')" wire:navigate>
-                {{ __('Assembly/Reviews') }}
+                {{ __('Reviews') }}
             </x-responsive-nav-link>
         </div>
 

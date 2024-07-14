@@ -21,49 +21,49 @@
     });
 ">
 <div x-bind:class="{'dark' : darkMode === true}">
-<div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-    <livewire:layout.navigation/>
+    <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
+        <livewire:layout.navigation/>
 
-    <!-- Page Heading -->
-    @if (isset($header))
-        <header class="bg-white dark:bg-gray-800 shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                {{ $header }}
-            </div>
-        </header>
-    @endif
+        <!-- Page Heading -->
+        @if (isset($header))
+            <header class="bg-white dark:bg-gray-800 shadow">
+                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
+            </header>
+        @endif
 
-    <!-- Page Content -->
-    <main>
-        @if (session()->has('success-message'))
-            <div class="pt-6">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div
-                        class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
-                        role="alert">
-                        <div class="ms-3 text-sm font-medium">
-                            {{ __(session('success-message')) }}
+        <!-- Page Content -->
+        <main>
+            @if (session()->has('success-message'))
+                <div class="pt-6">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div
+                            class="flex items-center p-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"
+                            role="alert">
+                            <div class="ms-3 text-sm font-medium">
+                                {{ __(session('success-message')) }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endif
-        @if (session()->has('error-message'))
-            <div class="pt-6">
-                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div
-                        class="flex items-center p-4 mb-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-green-400"
-                        role="alert">
-                        <div class="ms-3 text-sm font-medium">
-                            {{ __(session('error-message')) }}
+            @endif
+            @if (session()->has('error-message'))
+                <div class="pt-6">
+                    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        <div
+                            class="flex items-center p-4 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-green-400"
+                            role="alert">
+                            <div class="ms-3 text-sm font-medium">
+                                {{ __(session('error-message')) }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endif
-        {{ $slot }}
-    </main>
-</div>
+            @endif
+            {{ $slot }}
+        </main>
+    </div>
 </div>
 </body>
 </html>

@@ -35,7 +35,7 @@
                             </button>
                         </li>
                         @if(!is_null($curriculum))
-                            @if($curriculum->customer->id !== Auth::user()->id)
+                            @if($curriculum->customer->id !== Auth::user()->id && $curriculum->status === \App\Enums\CurriculumStatus::PENDING_REVIEW)
                             <li>
                                 <button @click.prevent="activeTab = 'content'"
                                         :class="{'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-200 dark:ring-indigo-500 dark:ring-offset-2 dark:outline-none dark:ring-2 dark:ring-offset-gray-800': activeTab === 'content', 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700': activeTab !== 'content'}"

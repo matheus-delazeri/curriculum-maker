@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CurriculumController;
+use App\Http\Controllers\CurriculumPdf;
 use App\Http\Middlewares\LocaleMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,7 @@ Route::group(['middleware' => ['auth', 'verified', LocaleMiddleware::class]], fu
         Route::view('/view/{curriculumId}', 'curriculum')->name('view');
         Route::view('/view/{curriculumId}/version/{versionId}', 'curriculum')->name('view.version');
         Route::get('/join/{id}', [CurriculumController::class, 'join'])->name('join');
+        Route::get('/pdf/{id}',[CurriculumController::class, 'pdf'])->name('pdf');
 
         Route::view('/editor/grid', 'editor')->name('editor.grid');
     });

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('status', \App\Enums\CurriculumStatus::toArray());
 
             $table->foreignId('customer_id')->nullable(false)->constrained('users');
-            $table->foreignId('assembler_id')->nullable()->constrained('users');
+            #$table->foreignId('assembler_id')->nullable()->constrained('users');
             $table->foreignId('reviewer_id')->nullable()->constrained('users');
         });
 

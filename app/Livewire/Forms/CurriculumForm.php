@@ -41,7 +41,6 @@ class CurriculumForm extends Component
             $this->curriculumId = $curriculum->id;
             $this->mountCustomerData($curriculum);
         } else {
-            // Initialize empty arrays for educations and experiences if creating new curriculum
             $this->educations = [];
             $this->experiences = [];
         }
@@ -53,6 +52,7 @@ class CurriculumForm extends Component
         if ($curriculum->customer->id != Auth::id()) {
             $customerInfo = $this->maskCustomerInfo($customerInfo);
         }
+
         $this->name = $customerInfo['name'];
         $this->email = $customerInfo['email'];
         $this->phone = $customerInfo['phone'];
@@ -67,16 +67,11 @@ class CurriculumForm extends Component
         foreach ($info as $key => $value) {
             if (is_string($value)) {
                 $maskedInfo[$key] = str_repeat('*', strlen($value));
-            } elseif (is_array($value)) {
-                $maskedInfo[$key] = array_map(function($item) {
-                    return array_map(function($subItem) {
-                        return is_string($subItem) ? str_repeat('*', strlen($subItem)) : $subItem;
-                    }, $item);
-                }, $value);
             } else {
                 $maskedInfo[$key] = $value;
             }
         }
+
         return $maskedInfo;
     }
 

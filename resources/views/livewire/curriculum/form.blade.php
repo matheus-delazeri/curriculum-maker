@@ -22,7 +22,7 @@
                     <x-text-input :disabled="$curriculumId" class="w-full" type="text" wire:model="name" id="name"/>
                     <x-input-error :messages="$errors->get('name')" class="mt-2"/>
                     @if($curriculumId && $curriculum->customer->id != Auth::id())
-                        <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{customer.name}</span></small>
+                        <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{customer.name}</span></small>
                     @endif
                 </div>
                 <div class="mb-4">
@@ -30,7 +30,7 @@
                     <x-text-input :disabled="$curriculumId" class="w-full" type="text" wire:model="email" id="email"/>
                     <x-input-error :messages="$errors->get('email')" class="mt-2"/>
                     @if($curriculumId && $curriculum->customer->id != Auth::id())
-                        <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{customer.email}</span></small>
+                        <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{customer.email}</span></small>
                     @endif
                 </div>
             </div>
@@ -41,7 +41,7 @@
                     <x-text-input :disabled="$curriculumId" class="w-full" type="text" wire:model="phone" id="phone"/>
                     <x-input-error :messages="$errors->get('phone')" class="mt-2"/>
                     @if($curriculumId && $curriculum->customer->id != Auth::id())
-                        <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{customer.phone}</span></small>
+                        <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{customer.phone}</span></small>
                     @endif
                 </div>
                 <div class="mb-4">
@@ -49,7 +49,7 @@
                     <x-text-input :disabled="$curriculumId" class="w-full" type="text" wire:model="address" id="address"/>
                     <x-input-error :messages="$errors->get('address')" class="mt-2"/>
                     @if($curriculumId && $curriculum->customer->id != Auth::id())
-                        <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{customer.address}</span></small>
+                        <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{customer.address}</span></small>
                     @endif
                 </div>
             </div>
@@ -65,7 +65,7 @@
                             <x-text-input :disabled="$curriculumId" class="w-3/4" type="text" wire:model="educations.{{ $index }}.institution" id="institution{{ $index }}"/>
                             <x-input-error :messages="$errors->get('educations.'.$index.'.institution')" class="mt-2"/>
                             @if($curriculumId && $curriculum->customer->id != Auth::id())
-                                <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{educations.{{ $index }}.institution}</span></small>
+                                <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{educations.{{ $index }}.institution}</span></small>
                             @endif
                         </div>
                         <div class="mb-4">
@@ -73,7 +73,7 @@
                             <x-text-input :disabled="$curriculumId" type="date" wire:model="educations.{{ $index }}.start_date" id="start_date_education{{ $index }}"/>
                             <x-input-error :messages="$errors->get('educations.'.$index.'.start_date')" class="mt-2"/>
                             @if($curriculumId && $curriculum->customer->id != Auth::id())
-                                <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{educations.{{ $index }}.start_date}</span></small>
+                                <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{educations.{{ $index }}.start_date}</span></small>
                             @endif
                         </div>
                         <div class="mb-4">
@@ -81,7 +81,7 @@
                             <x-text-input :disabled="$curriculumId" type="date" wire:model="educations.{{ $index }}.end_date" id="end_date_education{{ $index }}"/>
                             <x-input-error :messages="$errors->get('educations.'.$index.'.end_date')" class="mt-2"/>
                             @if($curriculumId && $curriculum->customer->id != Auth::id())
-                                <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{educations.{{ $index }}.end_date}</span></small>
+                                <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{educations.{{ $index }}.end_date}</span></small>
                             @endif
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                                   class="form-textarea border-gray-300 rounded-md shadow-sm mt-1 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" rows="3"></textarea>
                         <x-input-error :messages="$errors->get('educations.'.$index.'.description')" class="mt-2"/>
                         @if($curriculumId && $curriculum->customer->id != Auth::id())
-                            <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{educations.{{ $index }}.description}</span></small>
+                            <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{educations.{{ $index }}.description}</span></small>
                         @endif
                     </div>
                     @if(is_null($curriculumId))
@@ -122,7 +122,7 @@
                             <x-text-input :disabled="$curriculumId" type="text" class="w-3/4" wire:model="experiences.{{ $index }}.company" id="company{{ $index }}"/>
                             <x-input-error :messages="$errors->get('experiences.'.$index.'.company')" class="mt-2"/>
                             @if($curriculumId && $curriculum->customer->id != Auth::id())
-                                <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{experiences.{{ $index }}.company}</span></small>
+                                <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{experiences.{{ $index }}.company}</span></small>
                             @endif
                         </div>
                         <div class="mb-4">
@@ -130,7 +130,7 @@
                             <x-text-input :disabled="$curriculumId" type="date" wire:model="experiences.{{ $index }}.start_date" id="start_date_experience{{ $index }}"/>
                             <x-input-error :messages="$errors->get('experiences.'.$index.'.start_date')" class="mt-2"/>
                             @if($curriculumId && $curriculum->customer->id != Auth::id())
-                                <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{experiences.{{ $index }}.start_date}</span></small>
+                                <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{experiences.{{ $index }}.start_date}</span></small>
                             @endif
                         </div>
                         <div class="mb-4">
@@ -138,7 +138,7 @@
                             <x-text-input :disabled="$curriculumId" type="date" wire:model="experiences.{{ $index }}.end_date" id="end_date_experience{{ $index }}"/>
                             <x-input-error :messages="$errors->get('experiences.'.$index.'.end_date')" class="mt-2"/>
                             @if($curriculumId && $curriculum->customer->id != Auth::id())
-                                <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{experiences.{{ $index }}.end_date}</span></small>
+                                <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{experiences.{{ $index }}.end_date}</span></small>
                             @endif
                         </div>
                     </div>
@@ -148,7 +148,7 @@
                                   class="form-textarea border-gray-300 rounded-md shadow-sm mt-1 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" rows="3"></textarea>
                         <x-input-error :messages="$errors->get('experiences.'.$index.'.description')" class="mt-2"/>
                         @if($curriculumId && $curriculum->customer->id != Auth::id())
-                            <small class="block text-gray-500 mt-1">Variable: <span class="text-gray-700">{experiences.{{ $index }}.description}</span></small>
+                            <small class="block text-gray-500 mt-1">Var: <span class="text-gray-700">{experiences.{{ $index }}.description}</span></small>
                         @endif
                     </div>
                     @if(is_null($curriculumId))

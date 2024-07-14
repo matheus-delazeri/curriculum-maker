@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\App;
 
 class User extends Authenticatable
 {
@@ -55,6 +56,6 @@ class User extends Authenticatable
 
     public function getLocale()
     {
-        return $this->preferences['locale'] ?? 'en';
+        return $this->preferences['locale'] ?? App::getLocale();
     }
 }
