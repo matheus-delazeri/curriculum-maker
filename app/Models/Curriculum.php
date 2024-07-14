@@ -86,6 +86,16 @@ class Curriculum extends Model
                 } else {
                     return $matches[0];
                 }
+
+            } elseif ($type === 'experiences' || $type === 'educations') {
+                $index = $keys[1] ?? null;
+                $attribute = $keys[2] ?? null;
+
+                if (is_numeric($index) && isset($customerInfo[$type][$index][$attribute])) {
+                    return $customerInfo[$type][$index][$attribute];
+                } else {
+                    return $matches[0];
+                }
             } else {
                 return $matches[0];
             }
