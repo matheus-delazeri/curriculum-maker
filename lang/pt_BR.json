@@ -207,5 +207,6 @@
     "Curriculum (:id)": "Currículo (:id)",
     "Are you sure you want to finish this review?": "Você tem certeza que deseja finalizar a revisão?",
     "After finished you will not be able to make more changes to the content.": "Após finalizada não será mais possível realizar alterações no conteúdo.",
-    "Unable to save curriculum version with empty content!": "Não é possível salvar uma nova versão de currículo com o conteúdo vazio!"
+    "Unable to save curriculum version with empty content!": "Não é possível salvar uma nova versão de currículo com o conteúdo vazio!",
+    "Curriculum rejected.": "Currículo rejeitado."
 }
